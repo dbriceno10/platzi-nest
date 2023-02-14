@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -23,9 +23,24 @@ export class AppController {
     return 'Hello Moto!';
   }
 
+  //para evitar choques de rutas, debemos hacer que todas las rutas que no sean dinamicas vayan de primeras...
+  @Get('products/filter')
+  getProductFilter() {
+    return `soy un filtro`;
+  }
+
   @Get('products/:id')
   getProduct(@Param('id') id: string) {
     return `product ${id}`;
+  }
+
+  @Get('products')
+  getProducts(
+    @Query('limit') limit: number,
+    @Query('offset') offset = 0, //si le pasamos un parametro por defecto, usamos tipado inferido
+    @Query('brand') brand: string,
+  ) {
+    return `products limit: ${limit} offset: ${offset} brand: ${brand}`;
   }
 
   @Get('categories/:id/:producs/:productId')
