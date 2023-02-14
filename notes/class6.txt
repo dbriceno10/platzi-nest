@@ -1,0 +1,7 @@
+Controladores: Son los que se encargan de recibir los request de nuetra aplicación. Tienen una responsabilidad manipular, validar datos, permisos, etc, si todo esta ok se conecta a la capa de servicios para obtener los datos
+
+Vamos a utilizar el protocolo HTTP
+
+Vamos a a utilizar decoradores, es lo que le dice a nest como se debe comportar respecto al framework
+
+Vamos a utilizar clases para definir los controladores ademas de utilizar los decoradores

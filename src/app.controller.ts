@@ -7,6 +7,19 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    // return this.appService.getHello();
+    return 'Hola mundo'
+  }
+
+  //manejo de rutas simples, no nos debemos preocupar por poner el '/'
+
+  @Get('new')
+  newEndpoint() {
+    return 'I`m new endpoint'
+  }
+
+  @Get('hello/world')
+  hello() {
+    return 'Hello Moto!'
   }
 }
