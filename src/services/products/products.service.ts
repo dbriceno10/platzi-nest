@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import e from 'express';
 import { Product } from 'src/entities/product/entity';
 
 @Injectable()
@@ -47,5 +48,18 @@ export class ProductsService {
     };
     this.products.push(newProduct);
     return newProduct;
+  }
+
+  update(payload: Product) {
+    const index = this.products.findIndex((item) => item.id === payload.id);
+    this.products[index] = payload;
+    return payload;
+  }
+
+  delete(id: number) {
+    const index = this.products.findIndex((item) => item.id === id);
+    const product = this.products[index];
+    this.products = this.products.splice(index, 1);
+    return product;
   }
 }
