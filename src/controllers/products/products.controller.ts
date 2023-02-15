@@ -7,17 +7,23 @@ import {
   Body,
   Put,
   Delete,
+  HttpStatus,
+  HttpCode,
+  Res,
 } from '@nestjs/common';
+
+import { response, Response } from 'express';
 
 @Controller('products')
 export class ProductsController {
   //para evitar choques de rutas, debemos hacer que todas las rutas que no sean dinamicas vayan de primeras...
   @Get('filter')
-  getProductFilter() {
-    return { message: `soy un filtro` };
+  getProductFilter(@Res() response: Response) { //De ser necesario podemos acceder al request y response normalmente de express para trabajar con ellos en caso de que sea necesario, por ejemplo podria ser util al momento de trabajar con un access token
+    return response.status(200).send({ message: `soy un filtro` });
   }
 
   @Get(':id')
+  @HttpCode(HttpStatus.ACCEPTED) //Podemos customizar el http code segun lo que se necesite...
   getProduct(@Param('id') id: string) {
     return { message: `product ${id}` };
   }

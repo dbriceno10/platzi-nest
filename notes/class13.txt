@@ -1,0 +1,1 @@
+El uso de los decoradores no evitar tener que manejar el request y el response directamente, ya que normalmente nest trabaja por debajo con express y se encarga de todo eso, pero de ser necesario los podemos manipular directamente usando express.
