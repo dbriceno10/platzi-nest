@@ -49,10 +49,23 @@ export class ProductsService {
     return newProduct;
   }
 
-  update(payload: Product) {
+  /*  update(payload: Product) {
     const index = this.products.findIndex((item) => item.id === payload.id);
     this.products[index] = payload;
     return payload;
+  } */
+
+  update(id: number, payload: any) {
+    console.log(id);
+    const product = this.findOne(payload.id);
+    console.log(product);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products[index] = { ...product, ...payload };
+      return this.products[index];
+    } else {
+      return { message: 'no se encontro el producto' };
+    }
   }
 
   delete(id: number) {
