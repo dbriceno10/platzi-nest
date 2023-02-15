@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import e from 'express';
 import { Product } from 'src/entities/product/entity';
 
 @Injectable()
