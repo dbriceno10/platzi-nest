@@ -71,13 +71,11 @@ export class ProductsController {
     //   id,
     //   payload,
     // };
-    return this.productsService.update(id, payload)
+    return this.productsService.update(id, payload);
   }
 
   @Delete(':id')
   delete(@Param('id') id: number) {
-    return {
-      message: `El producto con el id ${id} se ha eliminado`,
-    };
+    return this.productsService.delete(id);
   }
 }

@@ -56,8 +56,7 @@ export class ProductsService {
   } */
 
   update(id: number, payload: any) {
-    console.log(id);
-    const product = this.findOne(payload.id);
+    const product = this.findOne(Number(id));
     console.log(product);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
@@ -68,10 +67,21 @@ export class ProductsService {
     }
   }
 
-  delete(id: number) {
+  /* delete(id: number) {
     const index = this.products.findIndex((item) => item.id === id);
     const product = this.products[index];
     this.products = this.products.splice(index, 1);
     return product;
+  } */
+
+  delete(id: number) {
+    const product = this.findOne(Number(id));
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products.splice(index, 1);
+      return product;
+    } else {
+      return { message: 'no se encontro el producto' };
+    }
   }
 }
