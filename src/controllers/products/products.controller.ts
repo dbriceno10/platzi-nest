@@ -10,7 +10,7 @@ import {
   HttpStatus,
   HttpCode,
   Res,
-  ParseIntPipe
+  ParseIntPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ProductsService } from 'src/services/products/products.service';
@@ -27,51 +27,25 @@ export class ProductsController {
   }
 
   @Get(':id')
-  @HttpCode(HttpStatus.ACCEPTED) //Podemos customizar el http code segun lo que se necesite...
-  getProduct(@Param('id') id: string) {
-    // return { message: `product ${id}` };
-    //pasarle el "+" a un string va  a tratar de hacer la conversion  a number
-    return this.productsService.findOne(+id);
+  // @HttpCode(HttpStatus.ACCEPTED) //Podemos customizar el http code segun lo que se necesite...
+  getProduct(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.findOne(id);
   }
 
   @Get('')
-  getProducts(
-    @Query('limit') limit: number,
-    @Query('offset') offset = 0, //si le pasamos un parametro por defecto, usamos tipado inferido
-    @Query('brand') brand: string,
-  ) {
-    // return {
-    //   message: `products limit: ${limit} offset: ${offset} brand: ${brand}`,
-    // };
+  getProducts() // @Query('limit') limit: number,
+  // @Query('offset') offset = 0, //si le pasamos un parametro por defecto, usamos tipado inferido
+  // @Query('brand') brand: string,
+  {
     return this.productsService.findAll();
   }
 
   @Post()
   create(@Body() payload: any) {
-    /* return {
-      message: 'Accion para crear',
-      payload,
-    }; */
     return this.productsService.create(payload);
   }
-
-  /* @Post()
-  create(@Body('name') name: string, @Body('price') price: number) {
-    return {
-      message: 'Accion para crear',
-      payload: {
-        name,
-        price,
-      },
-    };
-  } */
-
   @Put(':id')
   update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
-    // return {
-    //   id,
-    //   payload,
-    // };
     return this.productsService.update(id, payload);
   }
 

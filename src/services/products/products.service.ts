@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from 'src/entities/product/entity';
 
 @Injectable()
@@ -36,7 +36,11 @@ export class ProductsService {
   }
 
   findOne(id: number) {
-    return this.products.find((item) => item.id === id);
+    const product = this.products.find((item) => item.id === id);
+    if (!product) {
+      throw new NotFoundException(`Producto ${id} no encontrado`);
+    }
+    return product;
   }
 
   create(payload: any) {
@@ -49,39 +53,24 @@ export class ProductsService {
     return newProduct;
   }
 
-  /*  update(payload: Product) {
-    const index = this.products.findIndex((item) => item.id === payload.id);
-    this.products[index] = payload;
-    return payload;
-  } */
-
   update(id: number, payload: any) {
     const product = this.findOne(id);
-    console.log(product);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
       this.products[index] = { ...product, ...payload };
       return this.products[index];
     } else {
-      return { message: 'no se encontro el producto' };
+      throw new NotFoundException(`Producto ${id} no encontrado`);
     }
   }
 
-  /* delete(id: number) {
-    const index = this.products.findIndex((item) => item.id === id);
-    const product = this.products[index];
-    this.products = this.products.splice(index, 1);
-    return product;
-  } */
-
   delete(id: number) {
-    const product = this.findOne(id);
-    if (product) {
-      const index = this.products.findIndex((item) => item.id === id);
-      this.products.splice(index, 1);
-      return product;
+    const index = this.products.findIndex((item) => item.id === id);
+    if (index === -1) {
+      throw new NotFoundException(`Producto ${id} no encontrado`);
     } else {
-      return { message: 'no se encontro el producto' };
+      this.products.splice(index, 1);
+      return { message: `Producto ${id} eliminado` };
     }
   }
 }
