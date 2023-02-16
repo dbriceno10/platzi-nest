@@ -1,0 +1,7 @@
+Los controladores tienen un fallo, sucede que el tipado funciona para la programación, pero al transpilarse sigue siendo JavaScript, por lo que los parámetros id siguen siendo strings y al operar con find en el array no retorna el objeto porque compara number === string, podemos evitar esto con los pipes de nestjs y la implementación quedaría así
+
+import { ParseIntPipe } from '@nestjs/common';
+  @Get(':id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return { msg: `Producto ${id}`, body: this.service.findOne(id) };
+  }
