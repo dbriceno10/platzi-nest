@@ -10,6 +10,7 @@ import {
   HttpStatus,
   HttpCode,
   Res,
+  ParseIntPipe
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ProductsService } from 'src/services/products/products.service';
@@ -66,7 +67,7 @@ export class ProductsController {
   } */
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() payload: any) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: any) {
     // return {
     //   id,
     //   payload,
@@ -75,7 +76,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.delete(id);
   }
 }

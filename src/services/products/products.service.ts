@@ -56,7 +56,7 @@ export class ProductsService {
   } */
 
   update(id: number, payload: any) {
-    const product = this.findOne(Number(id));
+    const product = this.findOne(id);
     console.log(product);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
@@ -75,7 +75,7 @@ export class ProductsService {
   } */
 
   delete(id: number) {
-    const product = this.findOne(Number(id));
+    const product = this.findOne(id);
     if (product) {
       const index = this.products.findIndex((item) => item.id === id);
       this.products.splice(index, 1);
