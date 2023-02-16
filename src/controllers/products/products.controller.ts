@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ProductsService } from 'src/services/products/products.service';
+import { ParseIntPipe as ParseIntPipeCustom } from 'src/common/parse-int/parse-int.pipe';
 
 @Controller('products')
 export class ProductsController {
@@ -50,7 +51,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipeCustom) id: number) {
     return this.productsService.delete(id);
   }
 }
